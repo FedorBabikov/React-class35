@@ -1,5 +1,5 @@
 import React from "react";
-import Category from "./Category";
+import Category from "./Category.js";
 
 export default function Categories({ categoriesToDisplay, selectProducts }) {
   return (

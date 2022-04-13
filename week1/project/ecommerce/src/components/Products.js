@@ -1,5 +1,5 @@
 import React from "react";
-import Product from "./Product";
+import Product from "./Product.js";
 
 export default function Products({ ProductsToDisplay }) {
   return (

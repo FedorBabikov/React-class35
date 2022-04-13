@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import "./App.css";
 
-import dbCategories from "./fake-data/all-categories";
-import dbProducts from "./fake-data/all-products";
+import dbCategories from "./fake-data/all-categories.js";
+import dbProducts from "./fake-data/all-products.js";
 
-import Title from "./components/Title";
-import Categories from "./components/Categories";
-import Products from "./components/Products";
+import Title from "./components/Title.js";
+import Categories from "./components/Categories.js";
+import Products from "./components/Products.js";
 
 export default function App() {
   const [products, setProducts] = useState(dbProducts);
