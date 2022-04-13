@@ -1,10 +1,10 @@
 import React from "react";
 import Category from "./Category";
 
-export default function Categories({ categories, selectProducts }) {
+export default function Categories({ categoriesToDisplay, selectProducts }) {
   return (
     <ul className="categories">
-      {categories.map((categoryName, index) => (
+      {categoriesToDisplay.map((categoryName, index) => (
         <Category
           name={categoryName}
           selectProducts={selectProducts}

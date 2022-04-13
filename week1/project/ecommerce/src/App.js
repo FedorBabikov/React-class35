@@ -4,7 +4,7 @@ import "./App.css";
 import dbCategories from "./fake-data/all-categories";
 import dbProducts from "./fake-data/all-products";
 
-import Header from "./components/Header";
+import Title from "./components/Title";
 import Categories from "./components/Categories";
 import Products from "./components/Products";
 
@@ -23,9 +23,18 @@ export default function App() {
 
   return (
     <>
-      <Header />
-      <Categories categories={dbCategories} selectProducts={selectProducts} />
-      <Products ProductsToDisplay={products} />
+      <header>
+        <Title />
+      </header>
+      <nav>
+        <Categories
+          categoriesToDisplay={dbCategories}
+          selectProducts={selectProducts}
+        />
+      </nav>
+      <main>
+        <Products ProductsToDisplay={products} />
+      </main>
     </>
   );
 }
