@@ -1,2 +1,53 @@
-.App {
+#root {
+  --margin: 6px;
+  max-width: 1300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.categories {
+  list-style: none;
+  margin: auto;
+  display: flex;
+  gap: var(--margin);
+  justify-content: center;
+}
+
+.categoryBtn {
+  padding: var(--margin);
+}
+
+.products {
+  list-style: none;
+  display: grid;
+  gap: var(--margin);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.product {
+  border: 1px solid rebeccapurple;
+  border-radius: var(--margin);
+  padding: var(--margin);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.product img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  margin-bottom: auto;
+}
+
+.product p {
+  font-size: 12px;
+  text-align: center;
 }
