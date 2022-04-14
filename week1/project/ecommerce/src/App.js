@@ -9,16 +9,23 @@ import Categories from "./components/Categories.js";
 import Products from "./components/Products.js";
 
 export default function App() {
-  const [products, setProducts] = useState(dbProducts);
+  const [state, setState] = useState({
+    products: dbProducts,
+    selectedCategory: null,
+  });
 
   function selectProducts(e) {
-    const selectedCategory = e.target.innerText.replace("FAKE: ", "");
+    const selectedCategory = e.target.value;
+    const selectedCategoryNormalized = selectedCategory.replace("FAKE: ", "");
 
     const selectedProducts = dbProducts.filter(
-      (product) => product.category === selectedCategory
+      (product) => product.category === selectedCategoryNormalized
     );
 
-    setProducts(selectedProducts);
+    setState({
+      products: selectedProducts,
+      selectedCategory: selectedCategory,
+    });
   }
 
   return (
@@ -29,11 +36,12 @@ export default function App() {
       <nav>
         <Categories
           categoriesToDisplay={dbCategories}
-          selectProducts={selectProducts}
+          selectedCategory={state.selectedCategory}
+          onClickHandler={selectProducts}
         />
       </nav>
       <main>
-        <Products ProductsToDisplay={products} />
+        <Products ProductsToDisplay={state.products} />
       </main>
     </>
   );

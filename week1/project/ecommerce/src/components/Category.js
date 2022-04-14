@@ -1,9 +1,11 @@
 import React from "react";
 
-export default function Category({ name, selectProducts }) {
+export default function Category({ catName, catClass, onClickHandler }) {
   return (
-    <li className="category" onClick={selectProducts}>
-      <button className="categoryBtn">{name}</button>
+    <li className="category">
+      <button className={catClass} value={catName} onClick={onClickHandler}>
+        {catName}
+      </button>
     </li>
   );
 }

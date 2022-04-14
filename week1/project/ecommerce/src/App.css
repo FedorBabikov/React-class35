@@ -1,14 +1,29 @@
 #root {
-  --margin: 6px;
   max-width: 1300px;
+  margin: auto;
+  padding: var(--font-size);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
 }
 
+header,
+nav {
+  width: 100%;
+  background-color: #efefef;
+  padding: var(--font-size) 0;
+}
+
+main {
+  width: 100%;
+}
+
 h1 {
   text-align: center;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 1px #fff;
+  color: #999;
 }
 
 .categories {
@@ -17,10 +32,22 @@ h1 {
   display: flex;
   gap: var(--margin);
   justify-content: center;
+  align-items: center;
 }
 
-.categoryBtn {
+.button {
+  cursor: pointer;
   padding: var(--margin);
+  text-align: center;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 1px #fff;
+  font-size: var(--font-size);
+  color: #999;
+}
+
+.button.clicked {
+  border: 2px solid rebeccapurple;
+  border-radius: 7px;
 }
 
 .products {
@@ -48,6 +75,6 @@ h1 {
 }
 
 .product p {
-  font-size: 12px;
+  font-size: var(--font-size);
   text-align: center;
 }
