@@ -10,21 +10,30 @@ import Products from "./components/Products.js";
 
 export default function App() {
   const [state, setState] = useState({
-    products: dbProducts,
     selectedCategory: null,
+    products: dbProducts,
   });
 
   function selectProducts(e) {
-    const selectedCategory = e.target.value;
-    const selectedCategoryNormalized = selectedCategory.replace("FAKE: ", "");
+    const prevCategory = state.selectedCategory;
 
-    const selectedProducts = dbProducts.filter(
-      (product) => product.category === selectedCategoryNormalized
-    );
+    let selectedCategory = e.target.value;
+    let selectedProducts;
+
+    if (selectedCategory !== prevCategory) {
+      const selectedCategoryNormalized = selectedCategory.replace("FAKE: ", "");
+
+      selectedProducts = dbProducts.filter(
+        (product) => product.category === selectedCategoryNormalized
+      );
+    } else {
+      selectedCategory = null;
+      selectedProducts = dbProducts;
+    }
 
     setState({
-      products: selectedProducts,
       selectedCategory: selectedCategory,
+      products: selectedProducts,
     });
   }
 
