@@ -8,13 +8,5 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-week1/project/ecommerce/.gitignore
 week1/project/ecommerce/node_modules
-week1/project/ecommerce/public/manifest.json
-week1/project/ecommerce/src/fake-data
-week1/project/ecommerce/src/App.test.js
-week1/project/ecommerce/src/reportWebVitals.js
-week1/project/ecommerce/src/setupTests.js
-week1/project/ecommerce/package-lock.json
-week1/project/ecommerce/package.json
 week1/project/ecommerce/README.md
