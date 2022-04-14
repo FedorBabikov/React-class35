@@ -1,5 +1,4 @@
 #root {
-  max-width: 1300px;
   margin: auto;
   padding: var(--font-size);
   display: flex;

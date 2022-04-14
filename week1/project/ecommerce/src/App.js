@@ -41,7 +41,7 @@ export default function App() {
         />
       </nav>
       <main>
-        <Products ProductsToDisplay={state.products} />
+        <Products productsToDisplay={state.products} />
       </main>
     </>
   );
