@@ -4,7 +4,11 @@
   --padding: 10px;
   --radius: 8px;
   --gap: 8px;
+  --bg_color: #efefef;
+  --text_color: #555;
 
+  min-height: 100vh;
+  background-color: snow;
   margin: auto;
   padding: var(--padding);
   display: flex;
@@ -13,11 +17,14 @@
   gap: var(--gap);
 }
 
-header,
+header {
+  width: 100%;
+  background-color: var(--bg_color);
+  padding: var(--padding) 0;
+}
+
 nav {
   width: 100%;
-  background-color: #efefef;
-  padding: var(--padding) 0;
 }
 
 main {
@@ -25,10 +32,11 @@ main {
 }
 
 h1 {
+  font-size: calc(var(--font-size) * 1.5);
   text-align: center;
   text-transform: uppercase;
   text-shadow: 1px 1px 1px #fff;
-  color: #999;
+  color: var(--text_color);
 }
 
 .categories {
@@ -46,8 +54,8 @@ h1 {
   text-align: center;
   text-transform: uppercase;
   text-shadow: 1px 1px 1px #fff;
-  font-size: var(--font-size);
-  color: #999;
+  font-size: calc(var(--font-size) * 0.85);
+  color: var(--text_color);
 }
 
 .button.clicked {
@@ -66,8 +74,11 @@ h1 {
   border: 1px solid rebeccapurple;
   border-radius: var(--radius);
   padding: var(--padding);
+  background-color: #fff;
+  color: var(--text_color);
   display: flex;
   flex-direction: column;
+  gap: var(--gap);
   justify-content: center;
   align-items: center;
 }
@@ -80,6 +91,10 @@ h1 {
 }
 
 .product p {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-size: var(--font-size);
   text-align: center;
 }
