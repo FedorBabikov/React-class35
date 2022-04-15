@@ -85,6 +85,7 @@ h1 {
   height: 100px;
   object-fit: contain;
   margin-bottom: auto;
+  pointer-events: none;
 }
 
 .product p {
@@ -94,4 +95,60 @@ h1 {
   text-overflow: ellipsis;
   font-size: var(--font-size);
   text-align: center;
+  pointer-events: none;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+}
+
+.showModal {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modalContent {
+  border: 1px solid rebeccapurple;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50vw;
+  background-color: #fff;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  align-items: center;
+  justify-content: center;
+}
+
+.modalProduct {
+  display: grid;
+  gap: var(--gap);
+  grid-template:
+    "ttl ttl"
+    "img prc"
+    "desc desc";
+}
+
+.title {
+  grid-area: ttl;
+}
+.image {
+  grid-area: img;
+  width: 50%;
+}
+.price {
+  grid-area: prc;
+}
+.description {
+  grid-area: desc;
 }

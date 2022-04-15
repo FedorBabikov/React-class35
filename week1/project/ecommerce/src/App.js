@@ -10,15 +10,14 @@ import Products from "./components/Products.js";
 
 export default function App() {
   const [state, setState] = useState({
-    selectedCategory: null,
+    category: null,
     products: dbProducts,
   });
 
   function selectProducts(e) {
-    const prevCategory = state.selectedCategory;
-
-    let selectedCategory = e.target.value;
-    let selectedProducts;
+    const prevCategory = state.category;
+    let selectedCategory = e.target.dataset.value;
+    let selectedProducts = dbProducts;
 
     if (selectedCategory !== prevCategory) {
       const selectedCategoryNormalized = selectedCategory.replace("FAKE: ", "");
@@ -28,11 +27,10 @@ export default function App() {
       );
     } else {
       selectedCategory = null;
-      selectedProducts = dbProducts;
     }
 
     setState({
-      selectedCategory: selectedCategory,
+      category: selectedCategory,
       products: selectedProducts,
     });
   }
@@ -45,7 +43,7 @@ export default function App() {
       <nav>
         <Categories
           categoriesToDisplay={dbCategories}
-          selectedCategory={state.selectedCategory}
+          selectedCategory={state.category}
           onClickHandler={selectProducts}
         />
       </nav>
