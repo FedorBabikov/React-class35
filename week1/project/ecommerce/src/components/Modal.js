@@ -2,7 +2,11 @@ import React from "react";
 
 export default function Modal({ productToDisplay, modalClass, clickHandler }) {
   return (
-    <div className={modalClass}>
+    <div
+      className={modalClass}
+      data-product={productToDisplay.id}
+      onClick={clickHandler}
+    >
       <div className="modalContent">
         <div className="modalProduct">
           <p className="title">{productToDisplay.title}</p>

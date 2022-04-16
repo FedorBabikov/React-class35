@@ -8,6 +8,7 @@ export default function Products({ productsToDisplay }) {
     modalClass: "modal",
   });
 
+  // if no product selected - set modal empty, otherwise - send it the selected one
   const modalContent = (state.productID &&
     productsToDisplay.find((product) => product.id === state.productID)) || {
     id: null,
@@ -19,13 +20,18 @@ export default function Products({ productsToDisplay }) {
     rating: null,
   };
 
+  // only gets invoked when these are clicked: prod card, modal `close` btn, the grey zone outside open modal
   function toggleModal(e) {
-    setState({
-      productID: +e.target.dataset.product,
-      modalClass: `${
-        state.modalClass === "modal" ? "modal showModal" : "modal"
-      }`,
-    });
+    if (e.target.dataset.product) {
+      setState({
+        productID: e.target.classList.contains("product")
+          ? +e.target.dataset.product
+          : null,
+        modalClass: `${
+          state.modalClass === "modal" ? "modal showModal" : "modal"
+        }`,
+      });
+    }
   }
 
   return (

@@ -14,12 +14,15 @@ export default function App() {
     products: dbProducts,
   });
 
+  // gets invoked when a btn is clicked
+  // take: prev cat - from state, selected cat - from the btn, all products - from DB
+  // then, in state, change either category or set of products to display
+  // then, re-render the component
   function selectProducts(e) {
-    const prevCategory = state.category;
     let selectedCategory = e.target.dataset.category;
     let selectedProducts = dbProducts;
 
-    if (selectedCategory !== prevCategory) {
+    if (selectedCategory !== state.category) {
       const selectedCategoryNormalized = selectedCategory.replace("FAKE: ", "");
 
       selectedProducts = dbProducts.filter(
