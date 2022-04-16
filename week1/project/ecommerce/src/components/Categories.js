@@ -4,7 +4,7 @@ import Category from "./Category.js";
 export default function Categories({
   categoriesToDisplay,
   selectedCategory,
-  onClickHandler,
+  clickHandler,
 }) {
   return (
     <ul className="categories">
@@ -14,7 +14,7 @@ export default function Categories({
           catClass={`button${
             categoryName === selectedCategory ? " clicked" : ""
           }`}
-          onClickHandler={onClickHandler}
+          clickHandler={clickHandler}
           key={index}
         />
       ))}

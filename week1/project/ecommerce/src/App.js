@@ -16,7 +16,7 @@ export default function App() {
 
   function selectProducts(e) {
     const prevCategory = state.category;
-    let selectedCategory = e.target.dataset.value;
+    let selectedCategory = e.target.dataset.category;
     let selectedProducts = dbProducts;
 
     if (selectedCategory !== prevCategory) {
@@ -38,13 +38,13 @@ export default function App() {
   return (
     <>
       <header>
-        <Title />
+        <Title selectedCategory={state.category} />
       </header>
       <nav>
         <Categories
           categoriesToDisplay={dbCategories}
           selectedCategory={state.category}
-          onClickHandler={selectProducts}
+          clickHandler={selectProducts}
         />
       </nav>
       <main>

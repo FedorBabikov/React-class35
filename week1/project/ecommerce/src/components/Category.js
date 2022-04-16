@@ -1,12 +1,12 @@
 import React from "react";
 
-export default function Category({ catName, catClass, onClickHandler }) {
+export default function Category({ catName, catClass, clickHandler }) {
   return (
     <li className="category">
       <button
         className={catClass}
-        data-value={catName}
-        onClick={onClickHandler}
+        data-category={catName}
+        onClick={clickHandler}
       >
         {catName}
       </button>

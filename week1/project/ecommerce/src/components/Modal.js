@@ -1,10 +1,6 @@
 import React from "react";
 
-export default function Modal({
-  productToDisplay,
-  onClickHandler,
-  modalClass,
-}) {
+export default function Modal({ productToDisplay, modalClass, clickHandler }) {
   return (
     <div className={modalClass}>
       <div className="modalContent">
@@ -20,7 +16,7 @@ export default function Modal({
         </div>
         <div className="modalButtons">
           <button>BUY</button>
-          <button data-product={productToDisplay.id} onClick={onClickHandler}>
+          <button data-product={productToDisplay.id} onClick={clickHandler}>
             CLOSE
           </button>
         </div>

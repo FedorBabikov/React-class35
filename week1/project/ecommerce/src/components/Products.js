@@ -36,15 +36,15 @@ export default function Products({ productsToDisplay }) {
             productID={product.id}
             title={product.title}
             imageURL={product.image}
-            onClickHandler={toggleModal}
+            clickHandler={toggleModal}
             key={index}
           />
         ))}
       </ul>
       <Modal
         productToDisplay={modalContent}
-        onClickHandler={toggleModal}
         modalClass={state.modalClass}
+        clickHandler={toggleModal}
       />
     </>
   );
