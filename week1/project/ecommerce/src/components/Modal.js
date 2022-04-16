@@ -15,12 +15,16 @@ export default function Modal({ productToDisplay, modalClass, clickHandler }) {
             src={productToDisplay.image}
             alt={productToDisplay.title}
           />
-          <div className="price">{productToDisplay.price}</div>
+          <div className="price">{`Euro ${productToDisplay.price}`}</div>
           <p className="description">{productToDisplay.description}</p>
         </div>
         <div className="modalButtons">
-          <button>BUY</button>
-          <button data-product={productToDisplay.id} onClick={clickHandler}>
+          <button className="button cta">BUY</button>
+          <button
+            className="button"
+            data-product={productToDisplay.id}
+            onClick={clickHandler}
+          >
             CLOSE
           </button>
         </div>
