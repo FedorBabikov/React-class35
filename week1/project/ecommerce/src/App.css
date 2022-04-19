@@ -46,14 +46,11 @@ h1 span {
   list-style: none;
   margin: auto;
 
-  display: flex;
+  display: grid;
   gap: var(--gap);
+  grid-template-columns: repeat(auto-fit, var(--btn_width));
   justify-content: center;
   align-items: center;
-}
-
-.category {
-  width: 100%;
 }
 
 .button {
@@ -62,6 +59,7 @@ h1 span {
   padding: var(--margin);
   text-align: center;
   text-transform: uppercase;
+  white-space: nowrap;
   text-shadow: 1px 1px 1px #fff;
   font-size: calc(var(--font-size) * 0.85);
   color: var(--text_color);

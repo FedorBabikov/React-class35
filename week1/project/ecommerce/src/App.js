@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 
 import dbCategories from "./fake-data/all-categories.js";
@@ -12,6 +12,13 @@ export default function App() {
   const [state, setState] = useState({
     category: null,
     products: dbProducts,
+  });
+
+  // Page title depends on whether some category is selected or not
+  useEffect(() => {
+    document.title = `Shop: ${
+      state.category ? state.category.replace("FAKE: ", "") : "ALL"
+    }`;
   });
 
   // gets invoked when a btn is clicked
