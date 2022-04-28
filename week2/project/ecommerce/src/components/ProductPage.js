@@ -12,25 +12,24 @@ export default function ProductPage() {
   });
 
   useEffect(() => {
-    let error = false;
-    let productData = {};
+    let isError = false;
+    let product = {};
 
     (async function () {
       try {
-        productData = await fetch(
-          `https://fakestoreapi.com/products/${id}`
-        ).then((r) => r.json());
+        product = await fetch(`https://fakestoreapi.com/products/${id}`).then(
+          (r) => r.json()
+        );
       } catch {
-        error = true;
+        isError = true;
       }
+      setState((state) => ({
+        ...state,
+        product,
+        isError,
+        isLoading: false,
+      }));
     })();
-
-    setState((state) => ({
-      ...state,
-      product: [productData],
-      isLoading: false,
-      isError: [error],
-    }));
   }, [id]);
 
   return (
@@ -49,7 +48,7 @@ export default function ProductPage() {
 
       {state.isLoading === true && <Modal />}
       {state.isError === true && (
-        <Modal message="Something terrible happened: couldn't fetch the data from server" />
+        <Modal message="Something bad happened: couldn't fetch the data from server" />
       )}
     </>
   );

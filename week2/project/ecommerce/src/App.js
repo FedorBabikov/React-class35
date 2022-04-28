@@ -19,7 +19,7 @@ export default function App() {
 
   useEffect(() => {
     (async function () {
-      let error = false;
+      let isError = false;
       let APIResponses = [[], []];
 
       try {
@@ -30,7 +30,7 @@ export default function App() {
           fetch("https://fakestoreapi.com/products").then((r) => r.json()),
         ]);
       } catch {
-        error = true;
+        isError = true;
       }
 
       setState((state) => ({
@@ -38,7 +38,7 @@ export default function App() {
         categories: APIResponses[0],
         allProducts: APIResponses[1],
         isLoading: false,
-        isError: [error],
+        isError,
       }));
     })();
   }, []);
@@ -50,7 +50,7 @@ export default function App() {
   }, [state.category]);
 
   async function selectProducts({ target }) {
-    let error = false;
+    let isError = false;
     let selectedCategory = target.dataset.category;
     let selectedProducts = [];
 
@@ -65,7 +65,7 @@ export default function App() {
           `https://fakestoreapi.com/products/category/${selectedCategory}`
         ).then((r) => r.json());
       } catch {
-        error = true;
+        isError = true;
       }
     } else {
       selectedCategory = null;
@@ -76,7 +76,7 @@ export default function App() {
       category: selectedCategory,
       categoryProducts: selectedProducts,
       isLoading: false,
-      isError: [error],
+      isError,
     }));
   }
 
@@ -108,7 +108,7 @@ export default function App() {
       </main>
       {state.isLoading === true && <Modal />}
       {state.isError === true && (
-        <Modal message="Something terrible happened: couldn't fetch the data from server" />
+        <Modal message="Something bad happened: couldn't fetch the data from server" />
       )}
     </Router>
   );
