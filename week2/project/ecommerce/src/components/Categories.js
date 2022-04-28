@@ -10,7 +10,9 @@ export default function Categories({
     <ul className="categories">
       {categoriesToDisplay.map((categoryName, index) => (
         <Category
-          catName={categoryName}
+          catName={
+            categoryName === selectedCategory ? "BACK TO ALL" : categoryName
+          }
           catClass={`button${
             categoryName === selectedCategory ? " clicked" : ""
           }`}
