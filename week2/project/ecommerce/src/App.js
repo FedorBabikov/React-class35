@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
 import "./App.css";
-
 import Title from "./components/Title.js";
 import Categories from "./components/Categories.js";
 import Products from "./components/Products.js";
@@ -16,22 +14,31 @@ export default function App() {
     categoryProducts: [],
     category: null,
     isLoading: true,
+    isError: false,
   });
 
   useEffect(() => {
     (async function () {
-      const APIResponses = await Promise.all([
-        fetch("https://fakestoreapi.com/products/categories").then((r) =>
-          r.json()
-        ),
-        fetch("https://fakestoreapi.com/products").then((r) => r.json()),
-      ]);
+      let error = false;
+      let APIResponses = [[], []];
+
+      try {
+        APIResponses = await Promise.all([
+          fetch("https://fakestoreapi.com/products/categories").then((r) =>
+            r.json()
+          ),
+          fetch("https://fakestoreapi.com/products").then((r) => r.json()),
+        ]);
+      } catch {
+        error = true;
+      }
 
       setState((state) => ({
         ...state,
         categories: APIResponses[0],
         allProducts: APIResponses[1],
         isLoading: false,
+        isError: [error],
       }));
     })();
   }, []);
@@ -43,6 +50,7 @@ export default function App() {
   }, [state.category]);
 
   async function selectProducts({ target }) {
+    let error = false;
     let selectedCategory = target.dataset.category;
     let selectedProducts = [];
 
@@ -52,9 +60,13 @@ export default function App() {
         isLoading: true,
       }));
 
-      selectedProducts = await fetch(
-        `https://fakestoreapi.com/products/category/${selectedCategory}`
-      ).then((r) => r.json());
+      try {
+        selectedProducts = await fetch(
+          `https://fakestoreapi.com/products/category/${selectedCategory}`
+        ).then((r) => r.json());
+      } catch {
+        error = true;
+      }
     } else {
       selectedCategory = null;
     }
@@ -64,6 +76,7 @@ export default function App() {
       category: selectedCategory,
       categoryProducts: selectedProducts,
       isLoading: false,
+      isError: [error],
     }));
   }
 
@@ -93,7 +106,10 @@ export default function App() {
           <Route path="/product/:id" element={<ProductPage />} />
         </Routes>
       </main>
-      {state.isLoading ? <Modal modalClass="modal showModal" /> : null}
+      {state.isLoading === true && <Modal />}
+      {state.isError === true && (
+        <Modal message="Something terrible happened: couldn't fetch the data from server" />
+      )}
     </Router>
   );
 }

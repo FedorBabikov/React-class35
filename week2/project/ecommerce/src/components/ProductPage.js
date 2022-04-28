@@ -33,8 +33,6 @@ export default function ProductPage() {
     }));
   }, [id]);
 
-  console.log(state.isError);
-
   return (
     <>
       <div className="product">
@@ -49,9 +47,9 @@ export default function ProductPage() {
         </p>
       </div>
 
-      {state.isLoading && <Modal />}
-      {state.isError && (
-        <Modal message="Something terrible happened: couldn't fetch data" />
+      {state.isLoading === true && <Modal />}
+      {state.isError === true && (
+        <Modal message="Something terrible happened: couldn't fetch the data from server" />
       )}
     </>
   );

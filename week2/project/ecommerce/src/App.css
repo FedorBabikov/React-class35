@@ -48,7 +48,7 @@ h1 span {
 
   display: grid;
   gap: var(--gap);
-  grid-template-columns: repeat(auto-fit, var(--btn_width));
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   justify-content: center;
   align-items: center;
 }
