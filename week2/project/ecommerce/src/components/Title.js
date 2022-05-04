@@ -1,16 +1,14 @@
 import React from "react";
 
-export default function Title({ selectedCategory }) {
+export default function Title({ selectedCat }) {
   return (
     <h1 className="title">
       {`${
-        selectedCategory !== null && selectedCategory !== "BACK TO ALL"
+        selectedCat && selectedCat !== "BACK TO ALL"
           ? "Our products in category "
           : "Our products"
       }`}
-      <span>
-        {selectedCategory !== "BACK TO ALL" ? selectedCategory : null}
-      </span>
+      <span>{selectedCat !== "BACK TO ALL" ? selectedCat : null}</span>
     </h1>
   );
 }

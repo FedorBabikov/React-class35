@@ -8,11 +8,15 @@ import ProductPage from "./components/ProductPage.js";
 import Modal from "./components/Modal.js";
 
 export default function App() {
+  const catProducts = sessionStorage.getItem("allProducts")
+    ? JSON.parse(sessionStorage.getItem("catProducts"))
+    : [];
+
   const [state, setState] = useState({
     categories: [],
-    allProducts: [],
-    categoryProducts: [],
     category: null,
+    allProducts: [],
+    catProducts: catProducts,
     isLoading: true,
     isError: false,
   });
@@ -40,76 +44,90 @@ export default function App() {
         isLoading: false,
         isError,
       }));
+
+      sessionStorage.setItem("allProducts", APIResponses[1]);
     })();
+
+    return () => {
+      sessionStorage.removeItem("allProducts");
+    };
   }, []);
 
   useEffect(() => {
     document.title = `Shop: ${
-      state.category ? state.category : "all products"
+      state.category && state.category !== "BACK TO ALL"
+        ? state.category
+        : "all products"
     }`;
   }, [state.category]);
 
   async function selectProducts({ target }) {
     let isError = false;
-    let selectedCategory = target.dataset.category;
-    let selectedProducts = [];
+    let selectedCat = target.innerHTML;
+    let catProducts = [];
 
-    if (selectedCategory !== state.category) {
+    if (selectedCat !== state.category) {
       setState((state) => ({
         ...state,
         isLoading: true,
       }));
 
       try {
-        selectedProducts = await fetch(
-          `https://fakestoreapi.com/products/category/${selectedCategory}`
+        catProducts = await fetch(
+          `https://fakestoreapi.com/products/category/${selectedCat}`
         ).then((r) => r.json());
       } catch {
         isError = true;
       }
     } else {
-      selectedCategory = null;
+      selectedCat = null;
     }
+
+    sessionStorage.setItem("catProducts", JSON.stringify(catProducts));
 
     setState((state) => ({
       ...state,
-      category: selectedCategory,
-      categoryProducts: selectedProducts,
+      category: selectedCat,
+      catProducts,
       isLoading: false,
       isError,
     }));
   }
 
   return (
-    <Router>
-      <header>
-        <Title selectedCategory={state.category} />
-      </header>
-      <nav>
-        <Categories
-          categoriesToDisplay={state.categories}
-          selectedCategory={state.category}
-          clickHandler={selectProducts}
-        />
-      </nav>
-      <main>
-        <Routes>
-          <Route
-            path="/"
-            element={<Products productsToDisplay={state.allProducts} />}
-            exact
-          />
-          <Route
-            path="/category"
-            element={<Products productsToDisplay={state.categoryProducts} />}
-          />
-          <Route path="/product/:id" element={<ProductPage />} />
-        </Routes>
-      </main>
-      {state.isLoading === true && <Modal />}
-      {state.isError === true && (
-        <Modal message="Something bad happened: couldn't fetch the data from server" />
+    <>
+      {state.isError ? (
+        <Modal message="Ooops! Error: couldn't fetch data from server" />
+      ) : state.isLoading ? (
+        <Modal />
+      ) : (
+        <Router>
+          <header>
+            <Title selectedCat={state.category} />
+          </header>
+          <nav>
+            <Categories
+              categories={state.categories}
+              selectedCat={state.category}
+              clickHandler={selectProducts}
+            />
+          </nav>
+          <main>
+            <Routes>
+              <Route
+                path="/"
+                element={<Products productsToDisplay={state.allProducts} />}
+                exact
+              />
+              <Route
+                path="/category"
+                element={<Products productsToDisplay={state.catProducts} />}
+              />
+              <Route path="/product/:id" element={<ProductPage />} />
+            </Routes>
+          </main>
+        </Router>
       )}
-    </Router>
+    </>
   );
 }

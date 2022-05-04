@@ -1,16 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function Category({ catName, catClass, clickHandler }) {
+export default function Category({ name, className, clickHandler }) {
   return (
     <li className="category">
-      <Link to={catClass.includes("clicked") ? "/" : "/category"}>
-        <button
-          className={catClass}
-          data-category={catName}
-          onClick={clickHandler}
-        >
-          {catName}
+      <Link to={className.includes("clicked") ? "/" : "/category"}>
+        <button className={className} onClick={clickHandler}>
+          {name}
         </button>
       </Link>
     </li>

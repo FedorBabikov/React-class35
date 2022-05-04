@@ -7,13 +7,13 @@ export default function ProductPage() {
 
   const [state, setState] = useState({
     product: {},
-    isLoading: true,
     isError: false,
+    isLoading: true,
   });
 
   useEffect(() => {
-    let isError = false;
     let product = {};
+    let isError = false;
 
     (async function () {
       try {
@@ -23,32 +23,34 @@ export default function ProductPage() {
       } catch {
         isError = true;
       }
-      setState((state) => ({
-        ...state,
+
+      setState({
         product,
         isError,
         isLoading: false,
-      }));
+      });
     })();
   }, [id]);
 
   return (
     <>
-      <div className="product">
-        <img
-          className="productImg"
-          src={state.product.image}
-          alt={state.product.title}
-        />
-        <p className="productName">{state.product.description}</p>
-        <p>
-          Euro <strong>{state.product.price}</strong>
-        </p>
-      </div>
-
-      {state.isLoading === true && <Modal />}
-      {state.isError === true && (
-        <Modal message="Something bad happened: couldn't fetch the data from server" />
+      {state.isError ? (
+        <Modal message="Ooops! Error: couldn't fetch data from server" />
+      ) : state.isLoading ? (
+        <Modal />
+      ) : (
+        <div className="product">
+          <p className="prodTitle">{state.product.title}</p>
+          <img
+            className="prodImg"
+            src={state.product.image}
+            alt={state.product.title}
+          />
+          <p className="prodPrice">
+            Euro <strong>{state.product.price}</strong>
+          </p>
+          <p className="prodDesc">{state.product.description}</p>
+        </div>
       )}
     </>
   );
