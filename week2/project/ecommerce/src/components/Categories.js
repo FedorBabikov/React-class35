@@ -21,7 +21,8 @@ export default function Categories({ categories, selectedCat, clickHandler }) {
     <ul ref={(thisUL) => (navRef.current = thisUL)} className="categories">
       {categories.map((catName, index) => (
         <Category
-          name={catName === selectedCat ? "BACK TO ALL" : catName}
+          name={catName}
+          currentName={catName === selectedCat ? "BACK TO ALL" : catName}
           className={`button${catName === selectedCat ? " clicked" : ""}`}
           clickHandler={clickHandler}
           key={index}
