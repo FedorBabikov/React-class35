@@ -44,6 +44,10 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    document.title = `Shop: ${
+      state.category ? state.category : "all products"
+    }`;
+
     if (!state.category) {
       setState((state) => ({
         ...state,
@@ -51,12 +55,6 @@ export default function App() {
         catProducts: JSON.parse(sessionStorage.getItem("catProducts")),
       }));
     }
-  }, [state.category]);
-
-  useEffect(() => {
-    document.title = `Shop: ${
-      state.category ? state.category : "all products"
-    }`;
   }, [state.category]);
 
   async function selectProducts({ target }) {
