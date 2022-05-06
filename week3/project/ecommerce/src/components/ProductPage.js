@@ -47,9 +47,9 @@ export default function ProductPage() {
         <div className="product">
           <img
             className="prodHeart"
-            src={items.includes(id) ? HeartSolid : HeartRegular}
+            src={items.includes(+id) ? HeartSolid : HeartRegular}
             alt="heart"
-            onClick={(e) => toggleItem(e, id)}
+            onClick={(e) => toggleItem(e, +id)}
           />
           <p className="prodTitle">{state.product.title}</p>
           <img

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import FavContext from "../FavContext.js";
 import Product from "./Product.js";
 
@@ -6,37 +6,38 @@ export default function Products({
   productsToDisplay = [],
   favourites = false,
 }) {
+  const [favToDisplay, setFavToDisplay] = useState([]);
+
   const { items } = useContext(FavContext);
 
-  const fetchFavourites = () => {
-    let favourites = [];
-
+  useEffect(() => {
     if (items.length !== 0) {
-      (async () => {
-        favourites = await Promise.all(
+      (async function () {
+        const res = await Promise.all(
           items.map((item) =>
             fetch(`https://fakestoreapi.com/products/${item}`).then((r) =>
               r.json()
             )
           )
         );
+
+        setFavToDisplay(res);
       })();
+    } else {
+      setFavToDisplay([]);
     }
-    return favourites;
-  };
+  }, [items]);
 
   return (
     <ul className="products">
-      {(favourites ? fetchFavourites() : productsToDisplay).map(
-        (product, index) => (
-          <Product
-            productID={product.id}
-            title={product.title}
-            imageURL={product.image}
-            key={index}
-          />
-        )
-      )}
+      {(favourites ? favToDisplay : productsToDisplay).map((product, index) => (
+        <Product
+          productID={product.id}
+          title={product.title}
+          imageURL={product.image}
+          key={index}
+        />
+      ))}
     </ul>
   );
 }
