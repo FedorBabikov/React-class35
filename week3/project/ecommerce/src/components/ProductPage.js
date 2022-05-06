@@ -1,8 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import Modal from "./Modal.js";
+import FavContext from "../FavContext.js";
+
+import HeartRegular from "../assets/heart-regular.svg";
+import HeartSolid from "../assets/heart-solid.svg";
 
 export default function ProductPage() {
+  const { items, toggleItem } = useContext(FavContext);
   const { id } = useParams();
 
   const [state, setState] = useState({
@@ -40,6 +45,12 @@ export default function ProductPage() {
         <Modal />
       ) : (
         <div className="product">
+          <img
+            className="prodHeart"
+            src={items.includes(id) ? HeartSolid : HeartRegular}
+            alt="heart"
+            onClick={(e) => toggleItem(e, id)}
+          />
           <p className="prodTitle">{state.product.title}</p>
           <img
             className="prodImg"

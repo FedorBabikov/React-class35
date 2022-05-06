@@ -1,6 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+
+import FavContext, { FavProvider } from "./FavContext.js";
+
 import "./App.css";
+import Nav from "./components/Nav.js";
 import Title from "./components/Title.js";
 import Categories from "./components/Categories.js";
 import Products from "./components/Products.js";
@@ -94,36 +98,43 @@ export default function App() {
   return (
     <>
       {state.isError ? (
-        <Modal message="Ooops! Error: couldn't fetch data from server" />
+        <Modal message="Ooops! Couldn't fetch data from server. Refresh the page or try again later" />
       ) : state.isLoading ? (
         <Modal />
       ) : (
-        <Router>
-          <header>
-            <Title selectedCat={state.category} />
-          </header>
-          <nav>
-            <Categories
-              categories={state.categories}
-              selectedCat={state.category}
-              clickHandler={selectProducts}
-            />
-          </nav>
-          <main>
-            <Routes>
-              <Route
-                path="/"
-                element={<Products productsToDisplay={state.allProducts} />}
-                exact
+        <FavProvider>
+          <Router>
+            <header>
+              <Title selectedCat={state.category} />
+            </header>
+            <Nav />
+            <nav>
+              <Categories
+                categories={state.categories}
+                selectedCat={state.category}
+                clickHandler={selectProducts}
               />
-              <Route
-                path="/category"
-                element={<Products productsToDisplay={state.catProducts} />}
-              />
-              <Route path="/product/:id" element={<ProductPage />} />
-            </Routes>
-          </main>
-        </Router>
+            </nav>
+            <main>
+              <Routes>
+                <Route
+                  path="/"
+                  element={<Products productsToDisplay={state.allProducts} />}
+                  exact
+                />
+                <Route
+                  path="/category"
+                  element={<Products productsToDisplay={state.catProducts} />}
+                />
+                <Route path="/product/:id" element={<ProductPage />} />
+                <Route
+                  path="/favourites"
+                  element={<Products favourites={true} />}
+                />
+              </Routes>
+            </main>
+          </Router>
+        </FavProvider>
       )}
     </>
   );
